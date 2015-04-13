@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!--SourceData -->
+	<bean id="dataSourceOne" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://192.168.80.104:3306/extract_result?characterEncoding=UTF-8" />
+		<property name="username" value="influx" />
+		<property name="password" value="influx1234" />
+	</bean>
+	<bean id="sqlSessionFactoryOne" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceOne" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.ossean.databaseSource" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryOne"></property>
+	</bean>
+	
+	
+	<!--DestData -->
+	<bean id="dataSourceTwo" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://192.168.80.130:3306/ossean_production?characterEncoding=UTF-8" />
+		<property name="username" value="trustie" />
+		<property name="password" value="1234" />
+	</bean>
+	<bean id="sqlSessionFactoryTwo" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceTwo" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.ossean.databaseTarget" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryTwo"></property>
+	</bean>
+
+</beans>
