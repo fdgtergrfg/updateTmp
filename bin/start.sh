@@ -10,4 +10,4 @@ CLASSPATH=$tmp:$CLASSPATH
 echo $CLASSPATH
 JVM_ARGS="-Xmn98m -Xmx128m -Xms128m -XX:NewRatio=4 -XX:SurvivorRatio=4 -XX:MaxTenuringThreshold=2"
 
-java $JVM_ARGS -classpath $CLASSPATH com.ossean.MainClass $SITE >>log/info.log 2>&1 &
+java $JVM_ARGS -classpath $CLASSPATH com.ossean.MainClass >>log/info.log 2>&1 &
