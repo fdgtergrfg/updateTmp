@@ -1,4 +1,4 @@
-package com.ossean;
+package com.ossean.Main;
 
 import java.util.List;
 
