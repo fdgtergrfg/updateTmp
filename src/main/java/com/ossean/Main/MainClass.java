@@ -60,15 +60,19 @@ public class MainClass {
 			}
 			
 			for(RelativeMemo_OsseanProduction rm_op:relativeMemos_op){
-				List<RelativeMemo_ExtractResult> result = sourceDao.getByAuthorAndUrl(source, rm_op.getAuthor(), rm_op.getUrl());
-				if(result.size() != 0){
-					RelativeMemo_ExtractResult rm_er = result.get(0);
+				logger.info("handle item :" + rm_op.getId());
+				RelativeMemo_ExtractResult result = sourceDao.getById(source, rm_op.getId());
+				if(result != null){
+					RelativeMemo_ExtractResult rm_er = result;
+					logger.info("author_url: " + rm_er.getAuthor_url() + "      " + "url_md5: " + rm_er.getUrl_md5());
 					rm_op.setAuthor_url(rm_er.getAuthor_url());
 					rm_op.setUrl_md5(rm_er.getUrl_md5());
 					
 					//更新数据库
 					targetDao.updateItem(target, rm_op);
 					
+				}else{
+					logger.info("no such Item in source table :" + rm_op.getId());
 				}
 				//更新指针
 				sourceDao.updatePointer(pointerTable, sourceTableName, targetTableName, rm_op.getId() + 1);

@@ -23,5 +23,8 @@ public interface SourceDao {
 	@Select("select * from ${table} where author=#{author} and url=#{url}")
 	public List<RelativeMemo_ExtractResult> getByAuthorAndUrl(@Param("table") String table, @Param("author") String author, @Param("url") String url);
 	
+	@Select("select * from ${table} where id=#{id}")
+	public RelativeMemo_ExtractResult getById(@Param("table") String table, @Param("id") int id);
+	
 
 }
